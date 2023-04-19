@@ -30,6 +30,19 @@ public class DataFrame {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param label
+	 * @return the column or null if it doesn't exist
+	 */
+	@SuppressWarnings("rawtypes")
+	public Column getColumn(String label) {
+		if(!dataframe.containsKey(label)) {
+			return null;
+		}
+		return dataframe.get(label);
+	}
+	
 	public void print() {
 		String acc = "";
 		for(String lbl : dataframe.keySet()) {
