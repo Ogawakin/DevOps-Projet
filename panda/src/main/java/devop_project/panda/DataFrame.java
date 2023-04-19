@@ -29,4 +29,14 @@ public class DataFrame {
 			dataframe.put(columns[i].getName(), columns[i]);
 		}
 	}
+	
+	public void print() {
+		String acc = "";
+		for(String lbl : dataframe.keySet()) {
+			acc += "[ ";
+			acc += dataframe.get(lbl).toString();
+			acc += "]\n";
+		}
+		System.out.print(acc);
+	}
 }
