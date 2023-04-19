@@ -13,9 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
       - name: Login to Docker Hub
         run: docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
 
