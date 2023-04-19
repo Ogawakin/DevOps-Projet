@@ -1,9 +1,10 @@
 package devop_project.panda;
 
 import java.util.Vector;
+import java.lang.IndexOutOfBoundsException;
 
 /**
- * 
+ * represent a column, containing a name and it's elements
  * @author insert team name
  * @param <T> must be a atomic type
  */
@@ -50,15 +51,50 @@ public class Column<T> {
 	}
 	
 	/**
+	 * change column label
+	 * @param newName
+	 */
+	public void setName(String newName) {
+		name = newName;
+	}
+	
+	/**
 	 * get a element of a specific index. 
 	 * @param index
 	 * @return the element
-	 * @throws something
+	 * @throws IndexOutOfBoundsException
 	 */
 	public T getElement(int index) {
+		if(index>=getSize()) {
+			throw new IndexOutOfBoundsException();
+		}
 		return elements.get(index);
 	}
 	
+	/**
+	 * add an element to the column
+	 * @param element
+	 */
+	public void addElement(T element) {
+		elements.add(element);
+	}
+	
+	/**
+	 * change an element to the column
+	 * @param index
+	 * @param element
+	 * @throws IndexOutOfBoundsException
+	 */
+	public void setElement(int index, T element) {
+		if(index>=getSize()) {
+			throw new IndexOutOfBoundsException();
+		}
+		elements.set(index, element);
+	}
+	
+	/**
+	 * @return string version of column
+	 */
 	public String toString() {
 		String acc = name + " : ";
 		for(T val : elements) {
