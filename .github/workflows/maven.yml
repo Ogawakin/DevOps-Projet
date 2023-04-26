@@ -31,10 +31,6 @@ jobs:
       #Testing phase
       - name: Test with Maven
         run: mvn --batch-mode --update-snapshots verify -f panda/pom.xml
-      - name: Put into a directory
-        run: mkdir jacoco-report && cp panda/target/site/jacoco/jacoco.xml jacoco-report && ls -r jacoco-report 
-      - name: Verify what Jacoco produce
-        run: ls -r /home/runner/work/DevOps-Projet/DevOps-Projet/panda/target/site/jacoco/
       #Upload the results.xml as an artifact
       - name: Archive Code Coverage Results
         uses: actions/upload-artifact@v3
@@ -57,15 +53,12 @@ jobs:
       # Check the root of the repo
       - name : Display root
         run: ls -r jacoco-report
-      # Display Report.XML 
-      - name: Use artifact from previous step
-        run: echo "Using artifact at " && echo ${{ github.workspace }}/staging/jacoco.xml
       # Generates coverage-report.md and publishes as checkrun
       - name: JaCoCo Code Coverage Report
         id: jacoco_reporter
         uses: PavanMudigonda/jacoco-reporter@v4.8
         with:
-          coverage_results_path: 'jacoco-report/jacoco.xml'
+          coverage_results_path: ${{ github.workspace }}/jacoco-report/jacoco.xml
           coverage_report_name: Coverage
           coverage_report_title: JaCoCo
           github_token: ${{ secrets.GITHUB_TOKEN }}
