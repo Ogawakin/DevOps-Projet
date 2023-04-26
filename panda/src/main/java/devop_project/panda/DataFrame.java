@@ -1,7 +1,13 @@
 package devop_project.panda;
 
 import java.util.Map;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 import java.util.Vector;
+
 import java.util.HashMap;
 
 import java.lang.NullPointerException;
@@ -34,13 +40,60 @@ public class DataFrame {
 	}
 	
 	/**
-	 * create a Datfor(int i=0;i<columns.length;i++) {
-			dataframe.put(columns[i].getName(), columns[i]);
-		}aFrame starting from a csv file
-	 * @param file_name
+	 * 
+	 * @param c column to add
+	 * @return this
 	 */
-	public DataFrame(String file_name) { 
-		this ();
+	public DataFrame addColumn(@SuppressWarnings("rawtypes") Column c) {
+		dataframe.put(c.getName(), c);
+		return this;
+	}
+	
+	/**
+	 * create a DataFrame starting from a csv file
+	 * first line of the file must contain one of those type :
+	 * string, int, float, double
+	 * If not, no comportement is garantied
+	 * @param file_name
+	 * @throws IOException
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public DataFrame(String file_name) throws IOException { 
+		this();
+		BufferedReader reader = new BufferedReader(new FileReader(file_name));
+		
+		String[] types = reader.readLine().split(",");
+		String[] names = reader.readLine().split(",");
+		
+		for(String name:names) {
+			addColumn(new Column(name));
+		}
+		
+		String s = reader.readLine();
+		while(s!=null) {
+			String[] values = s.split(",");
+			for(int i=0;i<values.length;i++) {
+				if(types[i].equals("string")) {
+					dataframe.get(names[i]).addElement(values[i]);
+				} else
+				if(values[i].equals("NaN")) {
+					dataframe.get(names[i]).addElement(values[i]);
+				} else
+				if(types[i].equals("int")) {
+					dataframe.get(names[i]).addElement(Integer.valueOf(values[i]));
+				} else 
+				if(types[i].equals("float")) {
+					dataframe.get(names[i]).addElement(Float.valueOf(values[i]));
+				} else
+				if(types[i].equals("double")) {
+					dataframe.get(names[i]).addElement(Double.valueOf(values[i]));
+				} else {
+					//do thing here
+				}
+			}
+			s = reader.readLine();
+		}
+		reader.close();
 	}
 	
 	/**
@@ -54,11 +107,6 @@ public class DataFrame {
 			return null;
 		}
 		return dataframe.get(label);
-	}
-	
-	@SuppressWarnings("rawtypes")
-	public void addColumn(Column c){
-		dataframe.put(c.getName(), c);
 	}
 	
 	public int getSize() {

@@ -1,0 +1,5 @@
+string,string,int,float,double
+firstname,lastname,age,size,favoriteNonDecimalNumber
+toto,Dupuit,5,1.1,0.1
+jackeline,Sters,55,1.15,0.321
+aze,ert,12,2.0,1.1

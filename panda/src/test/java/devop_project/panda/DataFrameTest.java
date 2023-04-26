@@ -2,6 +2,8 @@ package devop_project.panda;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 import java.lang.NoSuchFieldException;
@@ -19,6 +21,15 @@ public class DataFrameTest {
 		Column<String> c = new Column<>(name);
 		DataFrame frame = new DataFrame(c);
 		assertNotEquals("initialised at null",null,frame);
+	}
+	
+	@Test
+	public void csvDataFrameConstructor() {
+		try {
+			DataFrame frame = new DataFrame("src/test/ressources/testFull.csv");
+		} catch (IOException e) {
+			fail(e.toString());
+		}
 	}
 	
 	@Test
