@@ -59,6 +59,6 @@ jobs:
       - name: Generating Badges
         uses: gaelgirodon/ci-badges-action@v1
         with:
-          gist-id: ${{ env.GIST_ID }}
+          gist-id: 8e07fede48571430cfd340cb3829b165
           token: ${{ secrets.GIST_TOKEN }}
 
