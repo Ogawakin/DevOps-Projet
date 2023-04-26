@@ -148,6 +148,7 @@ public class Column<T extends Comparable<T>> {
 	}
 
 
+	@SuppressWarnings("unchecked")
 	public T getMoyenne(){
 		if(getElement(0).getClass() == Integer.class) {
 			Integer val = (Integer) getElement(0);
@@ -160,7 +161,6 @@ public class Column<T extends Comparable<T>> {
 			val = val / getSize();
 			return (T) val;
 		}
-
 		if(getElement(0).getClass() == Float.class) {
 			Float val = (Float) getElement(0);
 
@@ -172,7 +172,6 @@ public class Column<T extends Comparable<T>> {
 			val = val / getSize();
 			return (T) val;
 		}
-
 		if(getElement(0).getClass() == Double.class) {
 			Double val = (Double) getElement(0);
 
@@ -184,7 +183,6 @@ public class Column<T extends Comparable<T>> {
 			val = val / getSize();
 			return (T) val;
 		}
-
 		else{
 			throw new UnsupportedOperationException();
 		}

@@ -370,11 +370,15 @@ public class ColumnTest {
 		assertEquals("Moy element should be 3.2", true , col.getMoyenne().equals((float)3.2));
 	}
 
+	private boolean closeEnough(double a, double b) {
+		final double epsilon = 0.000001;
+		return a<b+epsilon && a>b-epsilon;
+	}
+	
 	@Test
 	public void doubleMoyenne(){
 		Column<Double> col = this.getDoubleColumn("");
-
-		assertEquals("Moy element should be 3.2", true,col.getMoyenne().equals((Double)3.2) );
+		assertEquals("Moy element should be 3.2 (+-0.000001)", true,closeEnough(col.getMoyenne(),(Double)3.2));
 	}
 
 	@Test (expected = UnsupportedOperationException.class)
