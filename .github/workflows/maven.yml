@@ -57,5 +57,7 @@ jobs:
           name: code-coverage-report-markdown
           path: ./coverage-results.md
           retention-days: 1
+      - name: Info on Generation
+        run: echo "Report generated"
 
 
