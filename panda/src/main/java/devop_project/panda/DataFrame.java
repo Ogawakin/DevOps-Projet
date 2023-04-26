@@ -5,6 +5,8 @@ import java.util.Vector;
 import java.util.HashMap;
 
 import java.lang.IllegalArgumentException;
+import java.lang.NullPointerException;
+
 /**
  * 
  * @author insert team name
@@ -115,7 +117,7 @@ public class DataFrame {
 		String acc = toString("all", 0);
 		System.out.print(acc);
 	}
-	
+  
 	/**
 	 * Print the first 5 lines of the dataframe
 	 */
@@ -177,6 +179,21 @@ public class DataFrame {
 			sous_dataframe.addColumn(new_c);
 		}
 		return sous_dataframe;
+	
+	/**
+	 * 
+	 * @param label
+	 * @return the val max on the column
+	 */
+	@SuppressWarnings("rawtypes")
+	public Object max(String label) {
+
+		Column col = this.getColumn(label);
+		if(col == null){
+			throw new NullPointerException();
+		}
+
+		return col.getMax();
 	}
 	
 	/**
@@ -206,6 +223,18 @@ public class DataFrame {
 
 		}
 		return sous_dataframe;
+ /** 
+	 * @param label
+	 * @return the val min on the column
+	 */
+	@SuppressWarnings("rawtypes")
+	public Object min(String label) {
+		Column col = this.getColumn(label);
+		if(col == null){
+			throw new NullPointerException();
+		}
+
+		return col.getMin();
 	}
 	
 	/**
@@ -239,40 +268,17 @@ public class DataFrame {
 		
 		return sous_dataframe;
 	}
-	
-//	/**
-//	 * 
-//	 * @param label
-//	 * @return the val max on the column
-//	 */
-//	public Object max(String label) {
-//		int max = 0;
-//		
-//		return max;
-//	}
-//	
-//	/**
-//	 * 
-//	 * @param label
-//	 * @return the val min on the column
-//	 */
-//	public Object min(String label) {
-//		int min = 0;
-//		
-//		return min;
-//	}
-//	
-//	/**
-//	 * 
-//	 * @param label
-//	 * @return the mean of all the valeur on this column
-//	 */
-//	public double moyenne(String label) {
-//		double sum = 0.;
-//		
-//		return sum;
-//	}
-//	
-	
-	
+  
+  /* @param label
+	 * @return the mean of all the valeur on this column
+	 */
+	@SuppressWarnings("rawtypes")
+	public Object moyenne(String label) {
+		Column col = this.getColumn(label);
+		if(col == null){
+			throw new NullPointerException();
+		}
+		
+		return col.getMoyenne();
+	}
 }

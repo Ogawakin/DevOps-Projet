@@ -2,13 +2,14 @@ package devop_project.panda;
 
 import java.util.Vector;
 import java.lang.IndexOutOfBoundsException;
+import java.lang.UnsupportedOperationException;
 
 /**
  * represent a column, containing a name and it's elements
  * @author insert team name
  * @param <T> must be a atomic type
  */
-public class Column<T> {
+public class Column<T extends Comparable<T>> {
 	private String name;
 	private Vector<T> elements;
 	
@@ -119,5 +120,108 @@ public class Column<T> {
 			}
 		}
 		return true;
+	}
+
+
+	public T getMax(){
+		T max = getElement(0);
+
+		for(int i = 0; i<getSize();i++){
+			if(getElement(i).compareTo(max) > 0){
+				max = getElement(i);
+			}
+		}
+
+		return max;
+	}
+
+	public T getMin(){
+		T min = getElement(0);
+
+		for(int i = 0; i<getSize();i++){
+			if(getElement(i).compareTo(min) < 0){
+				min = getElement(i);
+			}
+		}
+
+		return min;
+	}
+
+
+	@SuppressWarnings("unchecked")
+	public T getMoyenne(){
+		if(getElement(0).getClass() == Integer.class) {
+			Integer val = (Integer) getElement(0);
+
+			for(int i = 1; i < getSize();i++){
+
+				Integer b = (Integer) getElement(i);
+				val = val +b;
+			}
+			val = val / getSize();
+			return (T) val;
+		}
+		if(getElement(0).getClass() == Float.class) {
+			Float val = (Float) getElement(0);
+
+			for(int i = 1; i < getSize();i++){
+
+				Float b = (Float) getElement(i);
+				val = val +b;
+			}
+			val = val / getSize();
+			return (T) val;
+		}
+		if(getElement(0).getClass() == Double.class) {
+			Double val = (Double) getElement(0);
+
+			for(int i = 1; i < getSize();i++){
+
+				Double b = (Double) getElement(i);
+				val = val +b;
+			}
+			val = val / getSize();
+			return (T) val;
+		}
+		else{
+			throw new UnsupportedOperationException();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public T getSum(){
+		if(getElement(0).getClass() == Integer.class) {
+			Integer val = (Integer) getElement(0);
+
+			for(int i = 1; i < getSize();i++){
+
+				Integer b = (Integer) getElement(i);
+				val = val +b;
+			}
+			return (T) val;
+		}
+		if(getElement(0).getClass() == Float.class) {
+			Float val = (Float) getElement(0);
+
+			for(int i = 1; i < getSize();i++){
+
+				Float b = (Float) getElement(i);
+				val = val +b;
+			}
+			return (T) val;
+		}
+		if(getElement(0).getClass() == Double.class) {
+			Double val = (Double) getElement(0);
+
+			for(int i = 1; i < getSize();i++){
+
+				Double b = (Double) getElement(i);
+				val = val +b;
+			}
+			return (T) val;
+		}
+		else{
+			throw new UnsupportedOperationException();
+		}
 	}
 }
