@@ -177,4 +177,62 @@ public class ColumnTest {
 		Column<Integer> c = new Column<>(name,elements);
 		assertEquals("column not expected",name+ " : 1 2 3 4 5 ",c.toString());
 	}
+	
+	@Test
+	public void setName() {
+		String name = "myColumn";
+		String newName = "ourColumn";
+		Vector<Integer> elements = new Vector<Integer>();
+		Column<Integer> c = new Column<>(name,elements);
+		c.setName(newName);
+		assertEquals("different name",newName,c.getName());
+	}
+	
+	@Test
+	public void addElementToEmpty() {
+		String name = "myColumn";
+		Vector<Integer> elements = new Vector<Integer>();
+		Column<Integer> c = new Column<>(name,elements);
+		c.addElement(42);
+		assertEquals("different length",1,c.getSize());
+		assertEquals("different element",42,(int)c.getElement(0));
+	}
+	
+	@Test
+	public void addElementToNonEmpty() {
+		String name = "myColumn";
+		Vector<String> elements = new Vector<String>();
+		elements.add("1.0");
+		elements.add("2.1");
+		elements.add("3.9");
+		elements.add("4.3");
+		elements.add("5.1");
+		Column<String> c = new Column<>(name,elements);
+		c.addElement("PI");
+		assertEquals("different length",6,c.getSize());
+		assertEquals("different element","PI",c.getElement(5));
+	}
+	
+	@Test(expected = IndexOutOfBoundsException.class)
+	public void setElementToEmpty() {
+		String name = "myColumn";
+		Vector<Integer> elements = new Vector<Integer>();
+		Column<Integer> c = new Column<>(name,elements);
+		c.setElement(0,42);
+	}
+	
+	@Test
+	public void setElementToNonEmpty() {
+		String name = "myColumn";
+		Vector<String> elements = new Vector<String>();
+		elements.add("1.0");
+		elements.add("2.1");
+		elements.add("3.9");
+		elements.add("4.3");
+		elements.add("5.1");
+		Column<String> c = new Column<>(name,elements);
+		c.setElement(2,"PI");
+		assertEquals("different length",5,c.getSize());
+		assertEquals("different element","PI",c.getElement(2));
+	}
 }
