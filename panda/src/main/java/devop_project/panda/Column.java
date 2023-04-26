@@ -102,4 +102,22 @@ public class Column<T> {
 		}
 		return acc;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if(o.getClass()!=this.getClass()) {
+			return false;
+		}
+		@SuppressWarnings("unchecked")
+		Column<T> c = (Column<T>) o;
+		if(c.getSize()!=this.getSize()) {
+			return false;
+		}
+		for(int i=0;i<getSize();i++) {
+			if (!getElement(i).equals(c.getElement(i))) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

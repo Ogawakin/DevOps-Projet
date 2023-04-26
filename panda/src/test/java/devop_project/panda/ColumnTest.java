@@ -235,4 +235,75 @@ public class ColumnTest {
 		assertEquals("different length",5,c.getSize());
 		assertEquals("different element","PI",c.getElement(2));
 	}
+	
+	@Test
+	public void equalEmpty() {
+		Column<String> c1 = new Column<>("c1");
+		Column<String> c2 = new Column<>("c2");
+		assertEquals("different column",c1,c2);
+	}
+	
+	@Test
+	public void equalWithDuck() {
+		Column<String> c1 = new Column<>("c1");
+		Object duck = new Object() {};
+		assertNotEquals("should different column",c1,duck);
+	}
+	
+	@Test
+	public void equalDiferentSize() {
+		Column<String> c1 = new Column<>("c1");
+		Column<String> c2 = new Column<>("c2");
+		c2.addElement("a");
+		assertNotEquals("different column",c1,c2);
+	}
+	
+	@Test
+	public void equalDiffType() {
+		Column<Integer> c1 = new Column<>("c1");
+		c1.addElement(1);
+		Column<Double> c2 = new Column<>("c2");
+		c2.addElement(1.);
+		assertNotEquals("should be different",c1,c2);
+	}
+	
+	@Test
+	public void equalString() {
+		Column<String> c1 = new Column<>("c1");
+		c1.addElement(".1");
+		c1.addElement(".2");
+		c1.addElement(".87");
+		c1.addElement(".4");
+		Column<String> c2 = new Column<>("c2");
+		c2.addElement(".1");
+		c2.addElement(".2");
+		c2.addElement(".87");
+		c2.addElement(".4");
+		assertEquals("should be the same",c1,c2);
+	}
+	
+	@Test
+	public void equalFloat() {
+		Column<Float> c1 = new Column<>("c1");
+		c1.addElement(1f);
+		Column<Float> c2 = new Column<>("c2");
+		c2.addElement(1f);
+		assertEquals("should be the same",c1,c2);
+	}
+	
+	public void equalInt() {
+		Column<Integer> c1 = new Column<>("c1");
+		c1.addElement(1);
+		Column<Integer> c2 = new Column<>("c2");
+		c2.addElement(1);
+		assertEquals("should be the same",c1,c2);
+	}
+	
+	public void equalDouble() {
+		Column<Double> c1 = new Column<>("c1");
+		c1.addElement(1.);
+		Column<Double> c2 = new Column<>("c2");
+		c2.addElement(1.);
+		assertEquals("should be the same",c1,c2);
+	}
 }
