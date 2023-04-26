@@ -48,16 +48,16 @@ jobs:
     permissions:
       checks: write
     steps:
-      #Check the root of the repo
-      - name : Display root
-        run: ls -r
-      #Dowload the results to exploit
+      # Dowload the results to exploit
       - name: Download Code Coverage Results
         uses: actions/download-artifact@v3
         with:
           name: code-coverage-report
           path: staging
-      # generates coverage-report.md and publishes as checkrun
+      # Check the root of the repo
+      - name : Display root
+        run: ls -r staging
+      # Generates coverage-report.md and publishes as checkrun
       - name: JaCoCo Code Coverage Report
         id: jacoco_reporter
         uses: PavanMudigonda/jacoco-reporter@v4.8
