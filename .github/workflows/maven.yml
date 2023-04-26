@@ -33,7 +33,6 @@ jobs:
         run: |
             mkdir jacoco-report
             cp panda/target/site/jacoco/jacoco.xml jacoco-report
-            cp panda/target/site/jacoco/index.html jacoco-report
             ls -r jacoco-report
       #Upload the results.xml as an artifact
       - name: Archive Code Coverage Results
@@ -41,6 +40,32 @@ jobs:
         with:
           name: code-coverage-report
           path: jacoco-report
+      # Javadoc phase
+      - name: Generate Javadoc with Maven
+        run: mvn --batch-mode --update-snapshots site -f panda/pom.xml              
+      # Store page index Into A New Folder
+      - name: Put into a directory
+        run: |
+            cp panda/target/site/apidocs/devop_project/panda/package-summary.html jacoco-report
+            ls -r jacoco-report
+      - name: Commit files
+        id: commit
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "github-actions"
+          git add panda/target/site/apidocs/devop_project/panda/package-summary.html
+          if [-z "$(git status --porcelain)"]; then
+             echo "::set-output name=push::false"
+          else
+             git commit -m "Add changes" -a
+             echo "::set-output name=push::true"
+          fi
+        shell: bash
+      - name: Push changes
+        if: steps.commit.outputs.push == 'true'
+        uses: ad-m/github-push-action@master
+        with:
+           github_token: ${{ secrets.GITHUB_TOKEN }}
   
   coverage:
     needs: build
