@@ -60,7 +60,7 @@ jobs:
         id: coverage
         # Generates a GitHub Workflow output named `lines`
         run: |
-          COVERAGE="$(target/site/jacoco/jacoco.xml)"
+          COVERAGE="$(jacoco-report/jacoco.xml)"
           echo "##[set-output name=lines;]${COVERAGE}%"
 
       # Use the output from the `coverage` step
