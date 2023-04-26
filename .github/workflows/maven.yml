@@ -57,6 +57,9 @@ jobs:
       # Check the root of the repo
       - name : Display root
         run: ls -r jacoco-report
+      # Display Report.XML 
+      - name: Use artifact from previous step
+        run: echo "Using artifact at " && echo ${{ github.workspace }}/staging/jacoco.xml
       # Generates coverage-report.md and publishes as checkrun
       - name: JaCoCo Code Coverage Report
         id: jacoco_reporter
