@@ -110,9 +110,6 @@ public class DataFrame {
 	 */
 	public DataFrame selectLine(int ...index) {
 		DataFrame sous_dataframe = this;
-		
-		
-		
 		return sous_dataframe;
 	}
 	
@@ -148,7 +145,7 @@ public class DataFrame {
 	 * @param label
 	 * @return the val max on the column
 	 */
-	public int max(String label) {
+	public Object max(String label) {
 		int max = 0;
 		
 		return max;
@@ -159,7 +156,7 @@ public class DataFrame {
 	 * @param label
 	 * @return the val min on the column
 	 */
-	public int min(String label) {
+	public Object min(String label) {
 		int min = 0;
 		
 		return min;
@@ -170,8 +167,8 @@ public class DataFrame {
 	 * @param label
 	 * @return the mean of all the valeur on this column
 	 */
-	public int moyenne(String label) {
-		int sum = 0;
+	public double moyenne(String label) {
+		double sum = 0.;
 		
 		return sum;
 	}
