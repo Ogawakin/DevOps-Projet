@@ -25,11 +25,40 @@ public class DataFrameTest {
 	
 	@Test
 	public void csvDataFrameConstructor() {
-		try {
-			DataFrame frame = new DataFrame("src/test/ressources/testFull.csv");
-		} catch (IOException e) {
-			fail(e.toString());
-		}
+	    try {
+		DataFrame frame = new DataFrame("src/test/ressources/testFull.csv");
+
+		Column<String> fname = new Column("firstname");
+		fname.addElement("toto");
+		fname.addElement("jackeline");
+		fname.addElement("aze");
+
+		Column<String> lname = new Column("lastname");
+		lname.addElement("Dupuit");
+		lname.addElement("Sters");
+		lname.addElement("ert");
+
+		Column<Integer> age = new Column("age");
+		age.addElement(5);
+		age.addElement(55);
+		age.addElement(12);
+
+		Column<Float> size = new Column("size");
+		size.addElement(1.1f);
+		size.addElement(1.15f);
+		size.addElement(2.0f);
+
+		Column<Double> fndn = new Column("favoriteNonDecimalNumber");
+		fndn.addElement(0.1);
+		fndn.addElement(0.321);
+		fndn.addElement(1.1);
+
+		DataFrame expected = new DataFrame(fname,lname,age,size,fndn);
+		assertEquals("data frame in csv file is invalid",expected,frame);
+
+	    } catch (IOException e) {
+		fail(e.toString());
+	    }
 	}
 	
 	@Test
