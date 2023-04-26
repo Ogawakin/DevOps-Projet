@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DataFrame.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">panda</a> &gt; <a href="index.source.html" class="el_package">devop_project.panda</a> &gt; <span class="el_source">DataFrame.java</span></div><h1>DataFrame.java</h1><pre class="source lang-java linenums">package devop_project.panda;
+
+import java.util.Map;
+import java.util.HashMap;
+
+/**
+ * 
+ * @author insert team name
+ *
+ */
+public class DataFrame {
+	@SuppressWarnings(&quot;rawtypes&quot;)
+	private Map&lt;String,Column&gt; dataframe;
+	
+	/**
+	 * create an empty dataframe
+	 */
+<span class="fc" id="L18">	public DataFrame() {</span>
+<span class="fc" id="L19">		dataframe = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L20">	}</span>
+	
+	/**
+	 * create a DataFrame with the specified columns
+	 * @param columns all columns to use
+	 */
+	public DataFrame(@SuppressWarnings(&quot;rawtypes&quot;) Column ...columns) {
+<span class="fc" id="L27">		this();</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">		for(int i=0;i&lt;columns.length;i++) {</span>
+<span class="fc" id="L29">			dataframe.put(columns[i].getName(), columns[i]);</span>
+		}
+<span class="fc" id="L31">	}</span>
+	
+	/**
+	 * create a DataFrame starting from a csv file
+	 * @param file_name
+	 */
+	public DataFrame(String file_name) { 
+<span class="nc" id="L38">		this ();</span>
+<span class="nc" id="L39">	}</span>
+	
+	/**
+	 * 
+	 * @param label
+	 * @return the column or null if it doesn't exist
+	 */
+	@SuppressWarnings(&quot;rawtypes&quot;)
+	private Column getColumn(String label) {
+<span class="nc bnc" id="L48" title="All 2 branches missed.">		if(!dataframe.containsKey(label)) {</span>
+<span class="nc" id="L49">			return null;</span>
+		}
+<span class="nc" id="L51">		return dataframe.get(label);</span>
+	}
+	
+	/**
+	 * 
+	 * @param way 
+	 * @param n
+	 * @return 	the dataframe if way = &quot;all&quot;
+	 * 			the n first lines if way = &quot;first&quot;
+	 * 			the n last lines if way = &quot;last&quot;
+	 */
+	protected String toString(String way, int n) {
+<span class="fc" id="L63">		String tab = &quot;&quot;;</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">		switch (way) {</span>
+		case &quot;all&quot; :
+<span class="fc bfc" id="L66" title="All 2 branches covered.">			for(String lbl : dataframe.keySet()) {</span>
+<span class="fc" id="L67">				tab += &quot;[ &quot;;</span>
+<span class="fc" id="L68">				tab += dataframe.get(lbl).toString();</span>
+<span class="fc" id="L69">				tab += &quot;]\n&quot;;</span>
+			}
+			break;
+		case &quot;first&quot; :
+			
+			break;
+		case &quot;last&quot; :
+			
+			break;
+		}
+<span class="fc" id="L79">		return tab; </span>
+	}
+	
+	/**
+	 * Print all the dataframe
+	 */
+	public void print() {
+<span class="nc" id="L86">		String acc = toString(&quot;all&quot;, 0);</span>
+<span class="nc" id="L87">		System.out.print(acc);</span>
+<span class="nc" id="L88">	}</span>
+	
+	/**
+	 * Print the first 5 lines of the dataframe
+	 */
+	public void printStart() {
+<span class="nc" id="L94">		String acc = toString(&quot;first&quot;, 5);</span>
+<span class="nc" id="L95">		System.out.print(acc);</span>
+<span class="nc" id="L96">	}</span>
+	
+	/**
+	 * Print the 5 last lines of the dataframe
+	 */
+	public void printEnd() {
+<span class="nc" id="L102">		String acc = toString(&quot;last&quot;, 5);</span>
+<span class="nc" id="L103">		System.out.print(acc);</span>
+<span class="nc" id="L104">	}</span>
+	
+	/**
+	 * 
+	 * @param index
+	 * @return a dataframe of the lines wanted
+	 */
+	public DataFrame selectLine(int ...index) {
+<span class="nc" id="L112">		DataFrame sous_dataframe = this;</span>
+		
+		
+		
+<span class="nc" id="L116">		return sous_dataframe;</span>
+	}
+	
+	/**
+	 * 
+	 * @param labels
+	 * @return a dataframe of the column want
+	 */
+	public DataFrame selectColomn(String ...labels) {
+<span class="nc" id="L125">		DataFrame sous_dataframe = this;</span>
+		
+		
+		
+<span class="nc" id="L129">		return sous_dataframe;</span>
+	}
+	
+	/**
+	 * 
+	 * @param label
+	 * @param val
+	 * @return a datafram where all the valeur at the label are val
+	 */
+	public DataFrame selectWhere(String label, Object val) {
+<span class="nc" id="L139">		DataFrame sous_dataframe = this;</span>
+		
+		
+		
+<span class="nc" id="L143">		return sous_dataframe;</span>
+	}
+	
+	/**
+	 * 
+	 * @param label
+	 * @return the val max on the column
+	 */
+	public int max(String label) {
+<span class="nc" id="L152">		int max = 0;</span>
+		
+<span class="nc" id="L154">		return max;</span>
+	}
+	
+	/**
+	 * 
+	 * @param label
+	 * @return the val min on the column
+	 */
+	public int min(String label) {
+<span class="nc" id="L163">		int min = 0;</span>
+		
+<span class="nc" id="L165">		return min;</span>
+	}
+	
+	/**
+	 * 
+	 * @param label
+	 * @return the mean of all the valeur on this column
+	 */
+	public int moyenne(String label) {
+<span class="nc" id="L174">		int sum = 0;</span>
+		
+<span class="nc" id="L176">		return sum;</span>
+	}
+	
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
