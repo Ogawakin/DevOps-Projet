@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Vector;
 import java.util.HashMap;
 
-import java.lang.IllegalArgumentException;
 import java.lang.NullPointerException;
 
 /**
@@ -57,7 +56,8 @@ public class DataFrame {
 		return dataframe.get(label);
 	}
 	
-	public void addColumn(Column<Object> c){
+	@SuppressWarnings("rawtypes")
+	public void addColumn(Column c){
 		dataframe.put(c.getName(), c);
 	}
 	
@@ -179,6 +179,7 @@ public class DataFrame {
 			sous_dataframe.addColumn(new_c);
 		}
 		return sous_dataframe;
+	}
 	
 	/**
 	 * 
@@ -223,6 +224,7 @@ public class DataFrame {
 
 		}
 		return sous_dataframe;
+	}
  /** 
 	 * @param label
 	 * @return the val min on the column
