@@ -10,6 +10,9 @@ name: Java CI with Maven
 
 on:
   push:
+    #branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
   
 jobs:
   build:
@@ -22,7 +25,67 @@ jobs:
         with:
           java-version: '18'
           distribution: 'temurin'
-      - name: Build with Maven
-        run: mvn clean package -f panda/pom.xml
+      ##Buiding phase
+      #- name: Build with Maven
+      #  run: mvn --batch-mode --update-snapshots package -f panda/pom.xml
+      #Testing phase
+      - name: Test with Maven
+        run: mvn --batch-mode --update-snapshots verify -f panda/pom.xml
+      - name: Put into a directory
+        run: mkdir jacoco-report && cp panda/target/site/jacoco/jacoco.xml jacoco-report && ls -r jacoco-report 
+      - name: Verify what Jacoco produce
+        run: ls -r /home/runner/work/DevOps-Projet/DevOps-Projet/panda/target/site/jacoco/
+      #Upload the results.xml as an artifact
+      - name: Archive Code Coverage Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage-report
+          path: jacoco-report
+  
+  test_coverage:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+    steps:
+      # Dowload the results to exploit
+      - name: Download Code Coverage Results
+        uses: actions/download-artifact@v3
+        with:
+          name: code-coverage-report
+          path: jacoco-report
+      # Check the root of the repo
+      - name : Display root
+        run: ls -r jacoco-report
+      # Display Report.XML 
+      - name: Use artifact from previous step
+        run: echo "Using artifact at " && echo ${{ github.workspace }}/staging/jacoco.xml
+      # Generates coverage-report.md and publishes as checkrun
+      - name: JaCoCo Code Coverage Report
+        id: jacoco_reporter
+        uses: PavanMudigonda/jacoco-reporter@v4.8
+        with:
+          coverage_results_path: "$GITHUB_WORKSPACE/jacoco-report/jacoco.xml"
+          coverage_report_name: Coverage
+          coverage_report_title: JaCoCo
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          skip_check_run: false
+          minimum_coverage: 80
+          fail_below_threshold: false
+          publish_only_summary: false 
+          
+      # Publish Coverage Job Summary  # Optional
+      - name: Add Coverage Job Summary
+        run: echo "${{ steps.jacoco_reporter.outputs.coverageSummary }}" >> $GITHUB_STEP_SUMMARY     
+
+      # uploads the coverage-report.md artifact  # Optional
+      - name: Upload Code Coverage Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage-report-markdown
+          path: ./coverage-results.md
+          retention-days: 1
+      - name: Info on Generation
+        run: echo "Report generated"
 
 
