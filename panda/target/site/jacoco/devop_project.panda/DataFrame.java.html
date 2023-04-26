@@ -38,18 +38,18 @@ public class DataFrame {
 <span class="nc" id="L38">		this ();</span>
 <span class="nc" id="L39">	}</span>
 	
-	/**
-	 * 
-	 * @param label
-	 * @return the column or null if it doesn't exist
-	 */
-	@SuppressWarnings(&quot;rawtypes&quot;)
-	private Column getColumn(String label) {
-<span class="nc bnc" id="L48" title="All 2 branches missed.">		if(!dataframe.containsKey(label)) {</span>
-<span class="nc" id="L49">			return null;</span>
-		}
-<span class="nc" id="L51">		return dataframe.get(label);</span>
-	}
+//	/**
+//	 * 
+//	 * @param label
+//	 * @return the column or null if it doesn't exist
+//	 */
+//	@SuppressWarnings(&quot;rawtypes&quot;)
+//	private Column getColumn(String label) {
+//		if(!dataframe.containsKey(label)) {
+//			return null;
+//		}
+//		return dataframe.get(label);
+//	}
 	
 	/**
 	 * 
@@ -86,96 +86,92 @@ public class DataFrame {
 <span class="nc" id="L86">		String acc = toString(&quot;all&quot;, 0);</span>
 <span class="nc" id="L87">		System.out.print(acc);</span>
 <span class="nc" id="L88">	}</span>
-	
-	/**
-	 * Print the first 5 lines of the dataframe
-	 */
-	public void printStart() {
-<span class="nc" id="L94">		String acc = toString(&quot;first&quot;, 5);</span>
-<span class="nc" id="L95">		System.out.print(acc);</span>
-<span class="nc" id="L96">	}</span>
-	
-	/**
-	 * Print the 5 last lines of the dataframe
-	 */
-	public void printEnd() {
-<span class="nc" id="L102">		String acc = toString(&quot;last&quot;, 5);</span>
-<span class="nc" id="L103">		System.out.print(acc);</span>
-<span class="nc" id="L104">	}</span>
-	
-	/**
-	 * 
-	 * @param index
-	 * @return a dataframe of the lines wanted
-	 */
-	public DataFrame selectLine(int ...index) {
-<span class="nc" id="L112">		DataFrame sous_dataframe = this;</span>
-		
-		
-		
-<span class="nc" id="L116">		return sous_dataframe;</span>
-	}
-	
-	/**
-	 * 
-	 * @param labels
-	 * @return a dataframe of the column want
-	 */
-	public DataFrame selectColomn(String ...labels) {
-<span class="nc" id="L125">		DataFrame sous_dataframe = this;</span>
-		
-		
-		
-<span class="nc" id="L129">		return sous_dataframe;</span>
-	}
-	
-	/**
-	 * 
-	 * @param label
-	 * @param val
-	 * @return a datafram where all the valeur at the label are val
-	 */
-	public DataFrame selectWhere(String label, Object val) {
-<span class="nc" id="L139">		DataFrame sous_dataframe = this;</span>
-		
-		
-		
-<span class="nc" id="L143">		return sous_dataframe;</span>
-	}
-	
-	/**
-	 * 
-	 * @param label
-	 * @return the val max on the column
-	 */
-	public int max(String label) {
-<span class="nc" id="L152">		int max = 0;</span>
-		
-<span class="nc" id="L154">		return max;</span>
-	}
-	
-	/**
-	 * 
-	 * @param label
-	 * @return the val min on the column
-	 */
-	public int min(String label) {
-<span class="nc" id="L163">		int min = 0;</span>
-		
-<span class="nc" id="L165">		return min;</span>
-	}
-	
-	/**
-	 * 
-	 * @param label
-	 * @return the mean of all the valeur on this column
-	 */
-	public int moyenne(String label) {
-<span class="nc" id="L174">		int sum = 0;</span>
-		
-<span class="nc" id="L176">		return sum;</span>
-	}
-	
+//	
+//	/**
+//	 * Print the first 5 lines of the dataframe
+//	 */
+//	public void printStart() {
+//		String acc = toString(&quot;first&quot;, 5);
+//		System.out.print(acc);
+//	}
+//	
+//	/**
+//	 * Print the 5 last lines of the dataframe
+//	 */
+//	public void printEnd() {
+//		String acc = toString(&quot;last&quot;, 5);
+//		System.out.print(acc);
+//	}
+//	
+//	
+//	/**
+//	 * 
+//	 * @param index
+//	 * @return a dataframe of the lines wanted
+//	 */
+//	public DataFrame selectLine(int ...index) {
+//		DataFrame sous_dataframe = this;
+//		return sous_dataframe;
+//	}
+//	
+//	/**
+//	 * 
+//	 * @param labels
+//	 * @return a dataframe of the column want
+//	 */
+//	public DataFrame selectColomn(String ...labels) {
+//		DataFrame sous_dataframe = this;
+//		
+//		
+//		
+//		return sous_dataframe;
+//	}
+//	
+//	/**
+//	 * 
+//	 * @param label
+//	 * @param val
+//	 * @return a datafram where all the valeur at the label are val
+//	 */
+//	public DataFrame selectWhere(String label, Object val) {
+//		DataFrame sous_dataframe = this;
+//		
+//		return sous_dataframe;
+//	}
+//	
+//	/**
+//	 * 
+//	 * @param label
+//	 * @return the val max on the column
+//	 */
+//	public Object max(String label) {
+//		int max = 0;
+//		
+//		return max;
+//	}
+//	
+//	/**
+//	 * 
+//	 * @param label
+//	 * @return the val min on the column
+//	 */
+//	public Object min(String label) {
+//		int min = 0;
+//		
+//		return min;
+//	}
+//	
+//	/**
+//	 * 
+//	 * @param label
+//	 * @return the mean of all the valeur on this column
+//	 */
+//	public double moyenne(String label) {
+//		double sum = 0.;
+//		
+//		return sum;
+//	}
+//	
 	
 	
 }
