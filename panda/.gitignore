@@ -1,4 +1,4 @@
 #Ignoring the target folder
 /target/
 # But not these files...
-/target/site/jacoco/
+!/target/site/jacoco/
