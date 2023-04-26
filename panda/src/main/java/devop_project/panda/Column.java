@@ -187,4 +187,41 @@ public class Column<T extends Comparable<T>> {
 			throw new UnsupportedOperationException();
 		}
 	}
+
+	@SuppressWarnings("unchecked")
+	public T getSum(){
+		if(getElement(0).getClass() == Integer.class) {
+			Integer val = (Integer) getElement(0);
+
+			for(int i = 1; i < getSize();i++){
+
+				Integer b = (Integer) getElement(i);
+				val = val +b;
+			}
+			return (T) val;
+		}
+		if(getElement(0).getClass() == Float.class) {
+			Float val = (Float) getElement(0);
+
+			for(int i = 1; i < getSize();i++){
+
+				Float b = (Float) getElement(i);
+				val = val +b;
+			}
+			return (T) val;
+		}
+		if(getElement(0).getClass() == Double.class) {
+			Double val = (Double) getElement(0);
+
+			for(int i = 1; i < getSize();i++){
+
+				Double b = (Double) getElement(i);
+				val = val +b;
+			}
+			return (T) val;
+		}
+		else{
+			throw new UnsupportedOperationException();
+		}
+	}
 }

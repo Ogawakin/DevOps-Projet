@@ -113,37 +113,72 @@ public class DataFrameTest {
 		frame.min("name");
 	}
 
-//	@Test
-//	public void moyInt() {
-//		String name = "myColumn";
-//		Column<Integer> c1 = new Column<>(name);
-//		c1.addElement(1);
-//		c1.addElement(2);
-//		DataFrame frame = new DataFrame(c1);
-//		assertEquals("moy incorrect",(Double) .5, (Double)frame.moyenne(name));
-//	}
-//	
-//	@Test
-//	public void moyFloat() {
-//		String name = "myColumn";
-//		Column<Float> c1 = new Column<>(name);
-//		c1.addElement(0.1f);
-//		c1.addElement(0.2f);
-//		DataFrame frame = new DataFrame(c1);
-//		assertEquals("moy incorrect",(Double) .15, (Double)frame.moyenne(name));
-//	}
-//	
-//	@Test
-//	public void moyDouble() {
-//		String name = "myColumn";
-//		Column<Double> c1 = new Column<>(name);
-//		c1.addElement(.1);
-//		c1.addElement(.2);
-//		DataFrame frame = new DataFrame(c1);
-//		assertEquals("moy incorrect",(Double) .15, (Double)frame.moyenne(name));
-//	}
+	@Test
+	public void moyInt() {
+		String name = "myColumn";
+		Column<Integer> c1 = new Column<>(name);
+		c1.addElement(1);
+		c1.addElement(2);
+		DataFrame frame = new DataFrame(c1);
+		assertEquals("moy incorrect",true, frame.moyenne(name).equals(1));
+	}
 	
+	@Test
+	public void moyFloat() {
+		String name = "myColumn";
+		Column<Float> c1 = new Column<>(name);
+		c1.addElement(0.1f);
+		c1.addElement(0.2f);
+		DataFrame frame = new DataFrame(c1);
+		assertEquals("moy incorrect",true, frame.moyenne(name).equals(0.15f));
+	}
 	
+	private boolean closeEnough(double a, double b) {
+		final double epsilon = 0.000001;
+		return a<b+epsilon && a>b-epsilon;
+	}
+
+	@Test
+	public void moyDouble() {
+		String name = "myColumn";
+		Column<Double> c1 = new Column<>(name);
+		c1.addElement(.1);
+		c1.addElement(.2);
+		DataFrame frame = new DataFrame(c1);
+		assertEquals("moy incorrect",true, closeEnough((Double)frame.moyenne(name),(Double) 0.15));
+	}
+
+	@Test
+	public void sumInt() {
+		String name = "myColumn";
+		Column<Integer> c1 = new Column<>(name);
+		c1.addElement(1);
+		c1.addElement(2);
+		DataFrame frame = new DataFrame(c1);
+		assertEquals("moy incorrect",true, frame.moyenne(name).equals(1));
+	}
+	
+	@Test
+	public void sumFloat() {
+		String name = "myColumn";
+		Column<Float> c1 = new Column<>(name);
+		c1.addElement(0.1f);
+		c1.addElement(0.2f);
+		DataFrame frame = new DataFrame(c1);
+		assertEquals("moy incorrect",true, frame.moyenne(name).equals(0.15f));
+	}
+	
+	@Test
+	public void sumDouble() {
+		String name = "myColumn";
+		Column<Double> c1 = new Column<>(name);
+		c1.addElement(.1);
+		c1.addElement(.2);
+		DataFrame frame = new DataFrame(c1);
+		assertEquals("moy incorrect",true, closeEnough((Double)frame.moyenne(name),(Double) 0.15));
+	}
+
+
 	
 	
 	

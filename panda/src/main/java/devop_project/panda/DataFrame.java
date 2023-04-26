@@ -176,10 +176,14 @@ public class DataFrame {
 	 * @param label
 	 * @return the mean of all the valeur on this column
 	 */
-	public double moyenne(String label) {
-		double sum = 0.;
-	
-		return sum;
+	@SuppressWarnings("rawtypes")
+	public Object moyenne(String label) {
+		Column col = this.getColumn(label);
+		if(col == null){
+			throw new NullPointerException();
+		}
+		
+		return col.getMoyenne();
 	}
 	
 	

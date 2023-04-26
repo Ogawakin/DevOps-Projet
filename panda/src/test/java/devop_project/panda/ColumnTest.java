@@ -387,4 +387,30 @@ public class ColumnTest {
 		col.getMoyenne();
 	}
 
+	@Test
+	public void integerSomme(){
+		Column<Integer> col = this.getIntegerColumn("");
+
+		assertEquals("Moy element should be 3", true, col.getSum().equals(9));
+	}
+
+	@Test
+	public void floatSomme(){
+		Column<Float> col = this.getFloatColumn("");
+
+		assertEquals("Moy element should be 3.2", true , col.getSum().equals((float)9.6));
+	}
+	
+	@Test
+	public void doubleSomme(){
+		Column<Double> col = this.getDoubleColumn("");
+		assertEquals("Moy element should be 3.2 (+-0.000001)", true,closeEnough(col.getSum(),(Double)9.6));
+	}
+
+	@Test (expected = UnsupportedOperationException.class)
+	public void stringSomme(){
+		Column<String> col = this.getStringColumn("");
+		col.getSum();
+	}
+
 }
