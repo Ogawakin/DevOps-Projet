@@ -30,7 +30,14 @@ jobs:
         run: mvn --batch-mode --update-snapshots verify -f panda/pom.xml
       # Store jacoco.xml Into A New Folder
       - name: Put into a directory
-        run: mkdir target/site/jacoco && cp panda/target/site/jacoco/jacoco.csv target/site/jacoco && ls -r target/site/jacoco
+        run: |
+              mkdir target
+              cd ./target
+              mkdir site
+              cd ./site
+              mkdir jacoco && cd ../..
+              cp panda/target/site/jacoco/jacoco.csv target/site/jacoco
+              ls -r target/site/jacoco
       #Upload the results.xml as an artifact
       - name: Archive Code Coverage Results
         uses: actions/upload-artifact@v3
