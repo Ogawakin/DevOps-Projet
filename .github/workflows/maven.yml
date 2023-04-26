@@ -33,6 +33,7 @@ jobs:
         run: |
             mkdir jacoco-report
             cp panda/target/site/jacoco/jacoco.xml jacoco-report
+            cp panda/target/site/jacoco/index.html jacoco-report
             ls -r jacoco-report
       #Upload the results.xml as an artifact
       - name: Archive Code Coverage Results
