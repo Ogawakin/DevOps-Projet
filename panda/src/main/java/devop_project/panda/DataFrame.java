@@ -42,13 +42,9 @@ public class DataFrame {
 	/**
 	 * 
 	 * @param c column to add
-	 * @throws IllegalArgumentException if already exist
 	 * @return this
 	 */
 	public DataFrame addColumn(@SuppressWarnings("rawtypes") Column c) {
-		if(dataframe.containsKey(c.getName())) {
-			throw new IllegalArgumentException();
-		}
 		dataframe.put(c.getName(), c);
 		return this;
 	}
@@ -111,11 +107,6 @@ public class DataFrame {
 			return null;
 		}
 		return dataframe.get(label);
-	}
-	
-	@SuppressWarnings("rawtypes")
-	public void addColumn(Column c){
-		dataframe.put(c.getName(), c);
 	}
 	
 	public int getSize() {
