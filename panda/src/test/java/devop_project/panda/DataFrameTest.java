@@ -32,6 +32,80 @@ public class DataFrameTest {
 		assertEquals("string not the same","[ start : hello world ]\n[ end : bye world ]\n",frame.toString("all",0));
 	}
 	
+	@Test
+	public void equalEmpty () {
+		DataFrame d1 = new DataFrame();
+		DataFrame d2 = new DataFrame();
+		assertEquals("different dataframe",d1,d2);
+	}
+	
+	@Test
+	public void equalSameColumnSameOrder() {
+		Column<Integer> c1 = new Column<>("first");
+		c1.addElement(1);
+		c1.addElement(2);
+		Column<Integer> c2 = new Column<>("first");
+		c2.addElement(1);
+		c2.addElement(2);
+		
+		Column<Integer> c3 = new Column<>("last");
+		c1.addElement(3);
+		c1.addElement(4);
+		Column<Integer> c4 = new Column<>("last");
+		c2.addElement(3);
+		c2.addElement(4);
+		
+		DataFrame d1 = new DataFrame(c1, c3);
+		DataFrame d2 = new DataFrame(c2, c4);
+		
+		assertEquals("different dataframe",d1,d2);
+	}
+	
+	@Test
+	public void equalSameColumnDiffOrder() {
+		Column<Integer> c1 = new Column<>("first");
+		c1.addElement(1);
+		c1.addElement(2);
+		Column<Integer> c2 = new Column<>("first");
+		c2.addElement(1);
+		c2.addElement(2);
+		
+		Column<Integer> c3 = new Column<>("last");
+		c1.addElement(3);
+		c1.addElement(4);
+		Column<Integer> c4 = new Column<>("last");
+		c2.addElement(3);
+		c2.addElement(4);
+		
+		DataFrame d1 = new DataFrame(c1, c3);
+		DataFrame d2 = new DataFrame(c4, c2);
+		
+		assertEquals("different dataframe",d1,d2);
+	}
+	
+	@Test
+	public void notEqualDifColumn() {
+		Column<Integer> c1 = new Column<>("first");
+		c1.addElement(1);
+		c1.addElement(2);
+		Column<Integer> c2 = new Column<>("first");
+		c2.addElement(7);
+		c2.addElement(8);
+		
+		Column<Integer> c3 = new Column<>("last");
+		c1.addElement(5);
+		c1.addElement(6);
+		Column<Integer> c4 = new Column<>("last");
+		c2.addElement(3);
+		c2.addElement(4);
+		
+		DataFrame d1 = new DataFrame(c1, c3);
+		DataFrame d2 = new DataFrame(c4, c2);
+		
+		assertNotEquals("different dataframe",d1,d2);
+	}
+	
+	
 //	@Test
 //	public void maxInt() {
 //		String name = "myColumn";
