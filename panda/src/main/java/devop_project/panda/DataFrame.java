@@ -1,6 +1,7 @@
 package devop_project.panda;
 
 import java.util.Map;
+import java.util.Vector;
 import java.util.HashMap;
 
 /**
@@ -31,26 +32,35 @@ public class DataFrame {
 	}
 	
 	/**
-	 * create a DataFrame starting from a csv file
+	 * create a Datfor(int i=0;i<columns.length;i++) {
+			dataframe.put(columns[i].getName(), columns[i]);
+		}aFrame starting from a csv file
 	 * @param file_name
 	 */
 	public DataFrame(String file_name) { 
 		this ();
 	}
 	
-//	/**
-//	 * 
-//	 * @param label
-//	 * @return the column or null if it doesn't exist
-//	 */
-//	@SuppressWarnings("rawtypes")
-//	private Column getColumn(String label) {
-//		if(!dataframe.containsKey(label)) {
-//			return null;
-//		}
-//		return dataframe.get(label);
-//	}
+	/**
+	 * 
+	 * @param label
+	 * @return the column or null if it doesn't exist
+	 */
+	@SuppressWarnings("rawtypes")
+	private Column getColumn(String label) {
+		if(!dataframe.containsKey(label)) {
+			return null;
+		}
+		return dataframe.get(label);
+	}
 	
+	public void addColumn(Column<Object> c){
+		dataframe.put(c.getName(), c);
+	}
+	
+	public int getSize() {
+		return dataframe.keySet().size();
+	}
 	/**
 	 * 
 	 * @param way 
@@ -102,43 +112,105 @@ public class DataFrame {
 //		String acc = toString("last", 5);
 //		System.out.print(acc);
 //	}
-//	
-//	
-//	/**
-//	 * 
-//	 * @param index
-//	 * @return a dataframe of the lines wanted
-//	 */
-//	public DataFrame selectLine(int ...index) {
-//		DataFrame sous_dataframe = this;
-//		return sous_dataframe;
-//	}
-//	
-//	/**
-//	 * 
-//	 * @param labels
-//	 * @return a dataframe of the column want
-//	 */
-//	public DataFrame selectColomn(String ...labels) {
-//		DataFrame sous_dataframe = this;
-//		
-//		
-//		
-//		return sous_dataframe;
-//	}
-//	
-//	/**
-//	 * 
-//	 * @param label
-//	 * @param val
-//	 * @return a datafram where all the valeur at the label are val
-//	 */
-//	public DataFrame selectWhere(String label, Object val) {
-//		DataFrame sous_dataframe = this;
-//		
-//		return sous_dataframe;
-//	}
-//	
+	
+	@Override
+	public boolean equals(Object o) {
+		if(o.getClass()!=this.getClass()) {
+			return false;
+		}
+		@SuppressWarnings("unchecked")
+		DataFrame D = (DataFrame) o;
+		dataframe.keySet();
+		
+		if(D.getSize()!= this.getSize()) {
+			return false;
+		}
+		
+		for(String key : dataframe.keySet()) {
+			if (!(getColumn(key) == D.getColumn(key))) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * 
+	 * @param index
+	 * @return a dataframe of the lines wanted
+	 */
+	@SuppressWarnings("unchecked")
+	public DataFrame selectLine(int ...index) {
+		DataFrame sous_dataframe = this;
+		dataframe.keySet();
+		
+		for(String key : dataframe.keySet()) {
+			@SuppressWarnings("rawtypes")
+			Column new_c = new Column(key);
+			@SuppressWarnings("rawtypes")
+			Column c = getColumn(key);
+			for(int i : index){
+				new_c.addElement(c.getElement(i));
+			}
+			sous_dataframe.addColumn(new_c);
+		}
+		return sous_dataframe;
+	}
+	
+	/**
+	 * 
+	 * @param labels
+	 * @return a dataframe of the column want
+	 */
+	@SuppressWarnings("unchecked")
+	public DataFrame selectColomn(String ...labels) {
+		DataFrame sous_dataframe = new DataFrame();
+		
+		for(int i=0;i<labels.length;i++) {
+			@SuppressWarnings("rawtypes")
+			Column new_c = new Column(labels[i]);
+			@SuppressWarnings("rawtypes")
+			Column c = getColumn(labels[i]);
+			for (int j=0; j< c.getSize(); j++) {
+				new_c.addElement(c.getElement(j));
+			}
+			sous_dataframe.addColumn(new_c);
+		}
+		return sous_dataframe;
+	}
+	
+	/**
+	 * 
+	 * @param label
+	 * @param val
+	 * @return a datafram where all the valeur at the label are val
+	 */
+	@SuppressWarnings("unchecked")
+	public DataFrame selectWhere(String label, Object val) {
+		DataFrame sous_dataframe = this;
+		Vector<Integer> index = new Vector<Integer>();
+		@SuppressWarnings("rawtypes")
+		Column c = getColumn(label);
+		for (int i=0; i < c.getSize(); i++) {
+			if (c.getElement(i) == val){
+				index.add(i);
+			}
+		}
+		
+		for(String key : dataframe.keySet()) {
+			@SuppressWarnings("rawtypes")
+			Column new_c = new Column(key);
+			@SuppressWarnings("rawtypes")
+			Column column = getColumn(key);
+			for(int i : index){
+				new_c.addElement(column.getElement(i));
+			}
+			sous_dataframe.addColumn(new_c);
+		}
+		
+		return sous_dataframe;
+	}
+	
 //	/**
 //	 * 
 //	 * @param label
