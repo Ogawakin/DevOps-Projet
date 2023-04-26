@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Vector;
 import java.util.HashMap;
 
+import java.lang.IllegalArgumentException;
 /**
  * 
  * @author insert team name
@@ -160,7 +161,11 @@ public class DataFrame {
 	public DataFrame selectLine(int ...index) {
 		DataFrame sous_dataframe = this;
 		dataframe.keySet();
-		
+		for(int i : index){
+			if(i >= dataframe.size()){
+				throw new IndexOutOfBoundsException();
+			}
+		}
 		for(String key : dataframe.keySet()) {
 			@SuppressWarnings("rawtypes")
 			Column new_c = new Column(key);
@@ -178,9 +183,10 @@ public class DataFrame {
 	 * 
 	 * @param labels
 	 * @return a dataframe of the column want
+	 * @throw IllegalArgumentException
 	 */
 	@SuppressWarnings("unchecked")
-	public DataFrame selectColomn(String ...labels) {
+	public DataFrame selectColumn(String ...labels){
 		DataFrame sous_dataframe = new DataFrame();
 		
 		for(int i=0;i<labels.length;i++) {
@@ -188,10 +194,16 @@ public class DataFrame {
 			Column new_c = new Column(labels[i]);
 			@SuppressWarnings("rawtypes")
 			Column c = getColumn(labels[i]);
+
+			if(c == null){
+				throw new NullPointerException();
+			}
+				
 			for (int j=0; j< c.getSize(); j++) {
 				new_c.addElement(c.getElement(j));
 			}
 			sous_dataframe.addColumn(new_c);
+
 		}
 		return sous_dataframe;
 	}

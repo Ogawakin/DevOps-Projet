@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import java.lang.NoSuchFieldException;
 public class DataFrameTest {
 
 	@Test
@@ -129,7 +130,7 @@ public class DataFrameTest {
 		c1.addElement("Mari");
 		c1.addElement("Sacha");
 		DataFrame d2= new DataFrame(c1);
-		assertEquals("column should be equal",d2,d1.selectColomn("first name"));
+		assertEquals("column should be equal",d2,d1.selectColumn("first name"));
 	}
 	
 	@Test
@@ -144,9 +145,15 @@ public class DataFrameTest {
 		c3.addElement(42);
 		c3.addElement(99);
 		DataFrame d2= new DataFrame(c3,c1);
-		assertEquals("column should be equal",d2,d1.selectColomn("first name","age"));
+		assertEquals("column should be equal",d2,d1.selectColumn("first name","age"));
 	}
 	
+	@Test (expected = NullPointerException.class)
+	public void selectInvalideColumn() {
+		DataFrame d1 = createDefaultStringDataFrame();
+		d1.selectWhere("city","Smh");
+	}
+
 	@Test
 	public void selectOneLine() {
 		DataFrame d1 = createDefaultStringDataFrame();
@@ -158,6 +165,19 @@ public class DataFrameTest {
 		c3.addElement(42);
 		DataFrame d2= new DataFrame(c1,c2,c3);
 		assertEquals("line should be equal",d2,d1.selectLine(1));
+	}
+
+	@Test (expected = IndexOutOfBoundsException.class)
+	public void selectInvalideLine() {
+		DataFrame d1 = createDefaultStringDataFrame();
+		Column<String> c1 = new Column<>("first name");
+		c1.addElement("Mari");
+		Column<String> c2 = new Column<>("last name");
+		c2.addElement("TommeDeSavoie");
+		Column<Integer> c3 = new Column<>("age");
+		c3.addElement(42);
+		DataFrame d2= new DataFrame(c1,c2,c3);
+		assertEquals("line should be equal",d2,d1.selectLine(10));
 	}
 	
 	@Test
@@ -192,6 +212,72 @@ public class DataFrameTest {
 		assertEquals("line should be equal",d2,d1.selectLine(0,1));
 	}
 	
+	@Test
+	public void selectWhereValueInDataframe() {
+		DataFrame d1 = createDefaultStringDataFrame();
+		Column<String> c1 = new Column<>("first name");
+		c1.addElement("Jean");
+		Column<String> c2 = new Column<>("last name");
+		c2.addElement("Baguette");
+		Column<Integer> c3 = new Column<>("age");
+		c3.addElement(30);
+		DataFrame d2= new DataFrame(c1,c2,c3);
+		assertEquals("line should be equal",d2,d1.selectWhere("age",30));
+	}
+
+	@Test
+	public void selectWhereValueNonInDataframe() {
+		DataFrame d1 = createDefaultStringDataFrame();
+		Column<String> c1 = new Column<>("first name");
+		Column<String> c2 = new Column<>("last name");
+		Column<Integer> c3 = new Column<>("age");
+		DataFrame d2= new DataFrame(c1,c2,c3);
+		assertEquals("line should be equal",d2,d1.selectWhere("age",33));
+	}
+
+	@Test (expected = NullPointerException.class)
+	public void selectWhereLabelNonInDataframe() {
+		DataFrame d1 = createDefaultStringDataFrame();
+		d1.selectWhere("city","Smh");
+	}
+
+	@Test
+	public void selectWhere2ValueInDataframe() {
+		Column<String> c1 = new Column<>("first name");
+		c1.addElement("Riri");
+		c1.addElement("Fifi");
+		c1.addElement("Loulou");
+
+		Column<String> c2 = new Column<>("last name");
+		c2.addElement("Duck");
+		c2.addElement("Duck");
+		c2.addElement("Duck");
+
+		Column<Integer> c3 = new Column<>("age");
+		c3.addElement(86);
+		c3.addElement(86);
+		c3.addElement(86);
+		DataFrame d1= new DataFrame(c1,c2,c3);
+
+		Column<String> c4 = new Column<>("first name");
+		c4.addElement("Riri");
+		c4.addElement("Fifi");
+		c4.addElement("Loulou");
+		c4.addElement("Pas");
+		Column<String> c5 = new Column<>("last name");
+		c5.addElement("Duck");
+		c5.addElement("Duck");
+		c5.addElement("Duck");
+		c5.addElement("Didé");
+		Column<Integer> c6 = new Column<>("age");
+		c6.addElement(86);
+		c6.addElement(86);
+		c6.addElement(86);
+		c6.addElement(0);
+		DataFrame d2= new DataFrame(c4,c5,c6);
+		assertEquals("line should be equal",d1,d2.selectWhere("age",86));
+	}
+
 	
 	
 //	@Test
