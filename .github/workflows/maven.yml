@@ -34,9 +34,9 @@ jobs:
       - run: mkdir staging && cp target/site/jacoco/jacoco.xml staging
       #Upload the results.xml as an artifact
       - name: Archive code coverage results
-        uses: actions/upload-artifact@v
+        uses: actions/upload-artifact@v3
         with:
-          name: code-coevrage-report
+          name: code-coverage-report
           path: staging
   test_coverage:
     runs-on: ubuntu-latest
