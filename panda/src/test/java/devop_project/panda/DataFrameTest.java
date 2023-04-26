@@ -105,6 +105,94 @@ public class DataFrameTest {
 		assertNotEquals("different dataframe",d1,d2);
 	}
 	
+	private DataFrame createDefaultStringDataFrame() {
+		Column<String> c1 = new Column<>("first name");
+		c1.addElement("Jean");
+		c1.addElement("Mari");
+		c1.addElement("Sacha");
+		Column<String> c2 = new Column<>("last name");
+		c2.addElement("Baguette");
+		c2.addElement("TommeDeSavoie");
+		c2.addElement("ain-bai");
+		Column<Integer> c3 = new Column<>("age");
+		c3.addElement(30);
+		c3.addElement(42);
+		c3.addElement(99);
+		return new DataFrame(c1,c2, c3);
+	}
+	
+	@Test
+	public void selectOneColumn() {
+		DataFrame d1 = createDefaultStringDataFrame();
+		Column<String> c1 = new Column<>("first name");
+		c1.addElement("Jean");
+		c1.addElement("Mari");
+		c1.addElement("Sacha");
+		DataFrame d2= new DataFrame(c1);
+		assertEquals("column should be equal",d2,d1.selectColomn("first name"));
+	}
+	
+	@Test
+	public void selectTwoColumn() {
+		DataFrame d1 = createDefaultStringDataFrame();
+		Column<String> c1 = new Column<>("first name");
+		c1.addElement("Jean");
+		c1.addElement("Mari");
+		c1.addElement("Sacha");
+		Column<Integer> c3 = new Column<>("age");
+		c3.addElement(30);
+		c3.addElement(42);
+		c3.addElement(99);
+		DataFrame d2= new DataFrame(c3,c1);
+		assertEquals("column should be equal",d2,d1.selectColomn("first name","age"));
+	}
+	
+	@Test
+	public void selectOneLine() {
+		DataFrame d1 = createDefaultStringDataFrame();
+		Column<String> c1 = new Column<>("first name");
+		c1.addElement("Mari");
+		Column<String> c2 = new Column<>("last name");
+		c2.addElement("TommeDeSavoie");
+		Column<Integer> c3 = new Column<>("age");
+		c3.addElement(42);
+		DataFrame d2= new DataFrame(c1,c2,c3);
+		assertEquals("line should be equal",d2,d1.selectLine(1));
+	}
+	
+	@Test
+	public void selectTwoAdjacentLine() {
+		DataFrame d1 = createDefaultStringDataFrame();
+		Column<String> c1 = new Column<>("first name");
+		c1.addElement("Jean");
+		c1.addElement("Sacha");
+		Column<String> c2 = new Column<>("last name");
+		c2.addElement("Baguette");
+		c2.addElement("ain-bai");
+		Column<Integer> c3 = new Column<>("age");
+		c3.addElement(30);
+		c3.addElement(99);
+		DataFrame d2= new DataFrame(c1,c2,c3);
+		assertEquals("line should be equal",d2,d1.selectLine(0,2));
+	}
+	
+	@Test
+	public void selectTwoNonAdjacentLine() {
+		DataFrame d1 = createDefaultStringDataFrame();
+		Column<String> c1 = new Column<>("first name");
+		c1.addElement("Jean");
+		c1.addElement("Mari");
+		Column<String> c2 = new Column<>("last name");
+		c2.addElement("Baguette");
+		c2.addElement("TommeDeSavoie");
+		Column<Integer> c3 = new Column<>("age");
+		c3.addElement(30);
+		c3.addElement(42);
+		DataFrame d2= new DataFrame(c1,c2,c3);
+		assertEquals("line should be equal",d2,d1.selectLine(0,1));
+	}
+	
+	
 	
 //	@Test
 //	public void maxInt() {

@@ -103,6 +103,10 @@ public class DataFrame {
 		return tab; 
 	}
 	
+	public String toString() {
+		return toString("all",0);
+	}
+	
 	/**
 	 * Print all the dataframe
 	 */
@@ -132,7 +136,6 @@ public class DataFrame {
 		if(o.getClass()!=this.getClass()) {
 			return false;
 		}
-		@SuppressWarnings("unchecked")
 		DataFrame D = (DataFrame) o;
 		dataframe.keySet();
 		
@@ -141,7 +144,7 @@ public class DataFrame {
 		}
 		
 		for(String key : dataframe.keySet()) {
-			if (!(getColumn(key) == D.getColumn(key))) {
+			if (!(getColumn(key).equals(D.getColumn(key)))) {
 				return false;
 			}
 		}
