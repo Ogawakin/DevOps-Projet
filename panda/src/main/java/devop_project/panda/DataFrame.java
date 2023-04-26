@@ -3,6 +3,7 @@ package devop_project.panda;
 import java.util.Map;
 import java.util.HashMap;
 
+import java.lang.NullPointerException;
 /**
  * 
  * @author insert team name
@@ -38,18 +39,18 @@ public class DataFrame {
 		this ();
 	}
 	
-//	/**
-//	 * 
-//	 * @param label
-//	 * @return the column or null if it doesn't exist
-//	 */
-//	@SuppressWarnings("rawtypes")
-//	private Column getColumn(String label) {
-//		if(!dataframe.containsKey(label)) {
-//			return null;
-//		}
-//		return dataframe.get(label);
-//	}
+	/**
+	 * 
+	 * @param label
+	 * @return the column or null if it doesn't exist
+	 */
+	@SuppressWarnings("rawtypes")
+	private Column getColumn(String label) {
+		if(!dataframe.containsKey(label)) {
+			return null;
+		}
+		return dataframe.get(label);
+	}
 	
 	/**
 	 * 
@@ -138,40 +139,49 @@ public class DataFrame {
 //		
 //		return sous_dataframe;
 //	}
-//	
-//	/**
-//	 * 
-//	 * @param label
-//	 * @return the val max on the column
-//	 */
-//	public Object max(String label) {
-//		int max = 0;
-//		
-//		return max;
-//	}
-//	
-//	/**
-//	 * 
-//	 * @param label
-//	 * @return the val min on the column
-//	 */
-//	public Object min(String label) {
-//		int min = 0;
-//		
-//		return min;
-//	}
-//	
-//	/**
-//	 * 
-//	 * @param label
-//	 * @return the mean of all the valeur on this column
-//	 */
-//	public double moyenne(String label) {
-//		double sum = 0.;
-//		
-//		return sum;
-//	}
-//	
+	
+	/**
+	 * 
+	 * @param label
+	 * @return the val max on the column
+	 */
+	@SuppressWarnings("rawtypes")
+	public Object max(String label) {
+
+		Column col = this.getColumn(label);
+		if(col == null){
+			throw new NullPointerException();
+		}
+
+		return col.getMax();
+	}
+	
+	/**
+	 * 
+	 * @param label
+	 * @return the val min on the column
+	 */
+	@SuppressWarnings("rawtypes")
+	public Object min(String label) {
+		Column col = this.getColumn(label);
+		if(col == null){
+			throw new NullPointerException();
+		}
+
+		return col.getMin();
+	}
+	
+	/**
+	 * 
+	 * @param label
+	 * @return the mean of all the valeur on this column
+	 */
+	public double moyenne(String label) {
+		double sum = 0.;
+	
+		return sum;
+	}
+	
 	
 	
 }

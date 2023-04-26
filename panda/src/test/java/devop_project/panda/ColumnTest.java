@@ -306,4 +306,30 @@ public class ColumnTest {
 		c2.addElement(1.);
 		assertEquals("should be the same",c1,c2);
 	}
+
+
+	public void integerMax(){
+		Column<Integer> col = this.getIntegerColumn("");
+
+		assertEquals("Max element should be 5", col.getMax().equals(5), true);
+	}
+
+	public void stringMax(){
+		Column<String> col = this.getStringColumn("");
+
+		assertEquals("Max element should be z", col.getMax().equals("z"), true);
+	}
+
+	public void integerMin(){
+		Column<Integer> col = this.getIntegerColumn("");
+
+		assertEquals("Min element should be 1", col.getMax().equals(1), true);
+	}
+
+	public void stringMin(){
+		Column<String> col = this.getStringColumn("");
+
+		assertEquals("Min element should be a", col.getMax().equals("a"), true);
+	}
+
 }

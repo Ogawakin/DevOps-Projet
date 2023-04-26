@@ -8,7 +8,7 @@ import java.lang.IndexOutOfBoundsException;
  * @author insert team name
  * @param <T> must be a atomic type
  */
-public class Column<T> {
+public class Column<T extends Comparable<T>> {
 	private String name;
 	private Vector<T> elements;
 	
@@ -119,5 +119,30 @@ public class Column<T> {
 			}
 		}
 		return true;
+	}
+
+
+	public T getMax(){
+		T max = getElement(0);
+
+		for(int i = 0; i<getSize();i++){
+			if(getElement(i).compareTo(max) > 0){
+				max = getElement(i);
+			}
+		}
+
+		return max;
+	}
+
+	public T getMin(){
+		T min = getElement(0);
+
+		for(int i = 0; i<getSize();i++){
+			if(getElement(i).compareTo(min) < 0){
+				min = getElement(i);
+			}
+		}
+
+		return min;
 	}
 }
