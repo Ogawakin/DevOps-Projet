@@ -42,12 +42,8 @@ jobs:
           path: jacoco-report
       # Javadoc phase
       - name: Generate Javadoc with Maven
-        run: mvn --batch-mode --update-snapshots site -f panda/pom.xml              
-      # Store page index Into A New Folder
-      - name: Put into a directory
-        run: |
-            cp panda/target/site/apidocs/devop_project/panda/package-summary.html jacoco-report
-            ls -r jacoco-report
+        run: mvn --batch-mode --update-snapshots site -f panda/pom.xml 
+      # Commit to the git
       - name: Commit files
         id: commit
         run: |
