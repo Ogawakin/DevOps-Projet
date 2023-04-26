@@ -36,7 +36,7 @@ jobs:
 
   test_coverage:
     runs-on: ubuntu-latest
-    needs: [build]
+    needs: build
     permissions:
       checks: write
     steps:
@@ -50,7 +50,7 @@ jobs:
         id: jacoco_reporter
         uses: PavanMudigonda/jacoco-reporter@v4.8
         with:
-          coverage_results_path: code-coverage-report
+          coverage_results_path: panda/target/site/jacoco/jacoco.xml
           coverage_report_name: Coverage
           coverage_report_title: JaCoCo
           github_token: ${{ secrets.GITHUB_TOKEN }}
