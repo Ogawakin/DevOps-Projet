@@ -45,6 +45,13 @@ Il existe plusieurs fonctions permettant de manipuler les colonnes du dataframe.
 
 ## **Choix d'outils**
 
+Afin de mettre en place nos differents outils de developpement nous avons utilié:
+- Github
+- Maven
+- Junit
+- Jacoco
+- https://github.com/gaelgirodon/ci-badges-action
+
 ## **Workflow mis en place**
 Le workflow est organisé dans le fichier `maven.yaml` du dossier `.github/workflows`.
 
@@ -62,4 +69,3 @@ Dans un second temps, les requests étaient faites uniquement dans le cas où le
 
 Nous avons commencé à regarder comment créer des images docker automatiquement afin de les transférer dans Docker Hub. Cependant nous n'avons pas eu le temps d'aller au bout. Ce qu'on nous avions commencé à faire se trouve dans la branche "dockerfile".
 
-## **Feedbacks**
