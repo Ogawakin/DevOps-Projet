@@ -30,13 +30,13 @@ jobs:
         run: mvn --batch-mode --update-snapshots verify -f panda/pom.xml
       # Store jacoco.xml Into A New Folder
       - name: Put into a directory
-        run: mkdir jacoco-report && cp panda/target/site/jacoco/jacoco.xml jacoco-report && ls -r jacoco-report
+        run: mkdir target/site/jacoco && cp panda/target/site/jacoco/jacoco.csv target/site/jacoco && ls -r target/site/jacoco
       #Upload the results.xml as an artifact
       - name: Archive Code Coverage Results
         uses: actions/upload-artifact@v3
         with:
           name: code-coverage-report
-          path: jacoco-report
+          path: target/site/jacoco
   
   test_coverage:
     needs: build
@@ -49,10 +49,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: code-coverage-report
-          path: jacoco-report
+          path: target/site/jacoco
       # Check the root of the repo
       - name : Display root
-        run: ls -r jacoco-report
+        run: ls -r target/site/jacoco
         
         
       - name: Generate JaCoCo badge
