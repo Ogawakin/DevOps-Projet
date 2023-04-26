@@ -25,19 +25,21 @@ jobs:
         with:
           java-version: '18'
           distribution: 'temurin'
-      #Buiding phase
-      - name: Build with Maven
-        run: mvn clean --batch-mode --update-snapshots package -f panda/pom.xml
+      ##Buiding phase
+      #- name: Build with Maven
+      #  run: mvn --batch-mode --update-snapshots package -f panda/pom.xml
       #Testing phase
       - name: Test with Maven
-        run: mvn clean verify -f panda/pom.xml
-      - run: mkdir staging && cp target/site/jacoco/jacoco.xml staging
+        run: mvn --batch-mode --update-snapshots verify panda/pom.xml
+      - name: Put into a directory
+        run: mkdir staging && cp target/site/jacoco/jacoco.xml staging
       #Upload the results.xml as an artifact
-      - name: Archive code coverage results
+      - name: Archive Code Coverage Results
         uses: actions/upload-artifact@v3
         with:
           name: code-coverage-report
           path: staging
+  
   test_coverage:
     runs-on: ubuntu-latest
     needs: build
@@ -48,7 +50,7 @@ jobs:
       - name : Display root
         run: ls -r
       #Dowload the results to exploit
-      - name: Download code coverage results
+      - name: Download Code Coverage Results
         uses: actions/download-artifact@v3
         with:
           name: code-coverage-report
@@ -57,7 +59,7 @@ jobs:
         id: jacoco_reporter
         uses: PavanMudigonda/jacoco-reporter@v4.8
         with:
-          coverage_results_path: jacoco.xml
+          coverage_results_path: staging/jacoco.xml
           coverage_report_name: Coverage
           coverage_report_title: JaCoCo
           github_token: ${{ secrets.GITHUB_TOKEN }}
