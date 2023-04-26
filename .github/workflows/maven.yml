@@ -25,12 +25,12 @@ jobs:
         with:
           java-version: '18'
           distribution: 'temurin'
-      ##Buiding phase
-      #- name: Build with Maven
-      #  run: mvn --batch-mode --update-snapshots package -f panda/pom.xml
-      #Testing phase
+      # Testing phase
       - name: Test with Maven
         run: mvn --batch-mode --update-snapshots verify -f panda/pom.xml
+      # Store jacoco.xml Into A New Folder
+      - name: Put into a directory
+        run: mkdir jacoco-report && cp panda/target/site/jacoco/jacoco.xml jacoco-report && ls -r jacoco-report
       #Upload the results.xml as an artifact
       - name: Archive Code Coverage Results
         uses: actions/upload-artifact@v3
