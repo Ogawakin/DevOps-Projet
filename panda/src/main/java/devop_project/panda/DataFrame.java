@@ -34,12 +34,8 @@ public class DataFrame {
 	 * create a DataFrame starting from a csv file
 	 * @param file_name
 	 */
-	public DataFrame(String file_name) {
+	public DataFrame(String file_name) { 
 		this ();
-		
-		
-		
-		
 	}
 	
 	/**
@@ -48,7 +44,7 @@ public class DataFrame {
 	 * @return the column or null if it doesn't exist
 	 */
 	@SuppressWarnings("rawtypes")
-	public Column getColumn(String label) {
+	private Column getColumn(String label) {
 		if(!dataframe.containsKey(label)) {
 			return null;
 		}
@@ -63,7 +59,7 @@ public class DataFrame {
 	 * 			the n first lines if way = "first"
 	 * 			the n last lines if way = "last"
 	 */
-	public String toString(String way, int n) {
+	protected String toString(String way, int n) {
 		String tab = "";
 		switch (way) {
 		case "all" :

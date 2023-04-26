@@ -12,7 +12,7 @@ public class ColumnTest {
 	public void constructeurEmptyColumn() {
 		String name = "myColumn";
 		Column<String> c = new Column<>(name);
-		assertEquals("name of the column not the same",name,c.getName());
+		assertEquals("name of the column not the same",name,c.getName()); 
 		assertEquals("number of column not null",0,c.getSize());
 	}
 	
