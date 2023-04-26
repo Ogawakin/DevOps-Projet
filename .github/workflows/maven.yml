@@ -29,10 +29,10 @@ jobs:
         run: mvn clean package -f panda/pom.xml
       #Upload the results.xml as an artifact
       - name: Archive code coverage results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: code-coverage-report
-          path: panda/target/site/jacoco/jacoco.xml
+          path: ~/jacoco.xml
 
   test_coverage:
     runs-on: ubuntu-latest
@@ -42,7 +42,7 @@ jobs:
     steps:
       #Dowload the results to exploit
       - name: Download math result for job 1
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v2
         with:
           name: code-coverage-report
       # generates coverage-report.md and publishes as checkrun
