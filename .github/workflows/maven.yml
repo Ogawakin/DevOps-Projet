@@ -56,7 +56,7 @@ jobs:
           path: jacoco-report
       # Check the root of the repo
       - name : Display root
-        run: ls -r staging
+        run: ls -r jacoco-report
       # Generates coverage-report.md and publishes as checkrun
       - name: JaCoCo Code Coverage Report
         id: jacoco_reporter
