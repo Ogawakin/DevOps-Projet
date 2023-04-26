@@ -51,6 +51,25 @@ public class ColumnTest {
 		Column<Integer> integerColumn = new Column<>(s,vect);
 		return integerColumn;
 	}
+
+	public Column<Float> getFloatColumn(String s) {
+		Vector<Float> vect = new Vector<Float>();
+		vect.add((float) 1.0);
+		vect.add((float) 3.6);
+		vect.add((float) 5.0);
+		Column<Float> integerColumn = new Column<>(s,vect);
+		return integerColumn;
+	}
+
+	public Column<Double> getDoubleColumn(String s) {
+		Vector<Double> vect = new Vector<Double>();
+		vect.add((double)1.0);
+		vect.add((double)3.6);
+		vect.add((double)5.0);
+		Column<Double> integerColumn = new Column<>(s,vect);
+		return integerColumn;
+	}
+
 	
 	public Column<String> getStringColumn(String s) {
 		Vector<String> vect = new Vector<String>();
@@ -291,6 +310,7 @@ public class ColumnTest {
 		assertEquals("should be the same",c1,c2);
 	}
 	
+	@Test
 	public void equalInt() {
 		Column<Integer> c1 = new Column<>("c1");
 		c1.addElement(1);
@@ -299,6 +319,7 @@ public class ColumnTest {
 		assertEquals("should be the same",c1,c2);
 	}
 	
+	@Test
 	public void equalDouble() {
 		Column<Double> c1 = new Column<>("c1");
 		c1.addElement(1.);
@@ -307,29 +328,59 @@ public class ColumnTest {
 		assertEquals("should be the same",c1,c2);
 	}
 
-
+	@Test
 	public void integerMax(){
 		Column<Integer> col = this.getIntegerColumn("");
 
-		assertEquals("Max element should be 5", col.getMax().equals(5), true);
+		assertEquals("Max element should be 5", true , col.getMax().equals(5));
 	}
 
+	@Test
 	public void stringMax(){
 		Column<String> col = this.getStringColumn("");
 
-		assertEquals("Max element should be z", col.getMax().equals("z"), true);
+		assertEquals("Max element should be z", true , col.getMax().equals("z"));
 	}
 
+	@Test
 	public void integerMin(){
 		Column<Integer> col = this.getIntegerColumn("");
 
-		assertEquals("Min element should be 1", col.getMax().equals(1), true);
+		assertEquals("Min element should be 1", true, col.getMin().equals(1));
 	}
 
+	@Test
 	public void stringMin(){
 		Column<String> col = this.getStringColumn("");
 
-		assertEquals("Min element should be a", col.getMax().equals("a"), true);
+		assertEquals("Min element should be a", true, col.getMin().equals("a"));
+	}
+
+	@Test
+	public void integerMoyenne(){
+		Column<Integer> col = this.getIntegerColumn("");
+
+		assertEquals("Moy element should be 3", true, col.getMoyenne().equals(3));
+	}
+
+	@Test
+	public void floatMoyenne(){
+		Column<Float> col = this.getFloatColumn("");
+
+		assertEquals("Moy element should be 3.2", true , col.getMoyenne().equals((float)3.2));
+	}
+
+	@Test
+	public void doubleMoyenne(){
+		Column<Double> col = this.getDoubleColumn("");
+
+		assertEquals("Moy element should be 3.2", true,col.getMoyenne().equals((Double)3.2) );
+	}
+
+	@Test (expected = UnsupportedOperationException.class)
+	public void stringMoyenne(){
+		Column<String> col = this.getStringColumn("");
+		col.getMoyenne();
 	}
 
 }

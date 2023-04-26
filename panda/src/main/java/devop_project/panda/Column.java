@@ -2,6 +2,7 @@ package devop_project.panda;
 
 import java.util.Vector;
 import java.lang.IndexOutOfBoundsException;
+import java.lang.UnsupportedOperationException;
 
 /**
  * represent a column, containing a name and it's elements
@@ -144,5 +145,48 @@ public class Column<T extends Comparable<T>> {
 		}
 
 		return min;
+	}
+
+
+	public T getMoyenne(){
+		if(getElement(0).getClass() == Integer.class) {
+			Integer val = (Integer) getElement(0);
+
+			for(int i = 1; i < getSize();i++){
+
+				Integer b = (Integer) getElement(i);
+				val = val +b;
+			}
+			val = val / getSize();
+			return (T) val;
+		}
+
+		if(getElement(0).getClass() == Float.class) {
+			Float val = (Float) getElement(0);
+
+			for(int i = 1; i < getSize();i++){
+
+				Float b = (Float) getElement(i);
+				val = val +b;
+			}
+			val = val / getSize();
+			return (T) val;
+		}
+
+		if(getElement(0).getClass() == Double.class) {
+			Double val = (Double) getElement(0);
+
+			for(int i = 1; i < getSize();i++){
+
+				Double b = (Double) getElement(i);
+				val = val +b;
+			}
+			val = val / getSize();
+			return (T) val;
+		}
+
+		else{
+			throw new UnsupportedOperationException();
+		}
 	}
 }
