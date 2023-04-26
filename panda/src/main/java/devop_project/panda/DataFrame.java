@@ -80,10 +80,24 @@ public class DataFrame {
 			}
 			break;
 		case "first" :
-			
+			for(String lbl : dataframe.keySet()) {
+				tab += "[ ";
+				tab += getColumn(lbl).getName() + " : ";
+				for (int i = 0; i < n; i++) {
+					tab += getColumn(lbl).getElement(i).toString() + " ";
+				}
+				tab += "]\n";
+			}
 			break;
 		case "last" :
-			
+			for(String lbl : dataframe.keySet()) {
+				tab += "[ ";
+				tab += getColumn(lbl).getName() + " : ";
+				for (int i = 0; i < n; i++) {
+					tab += getColumn(lbl).getElement(getColumn(lbl).getSize() -1 -i).toString() + " ";
+				}
+				tab += "]\n";
+			}
 			break;
 		}
 		return tab; 
@@ -96,22 +110,22 @@ public class DataFrame {
 		String acc = toString("all", 0);
 		System.out.print(acc);
 	}
-//	
-//	/**
-//	 * Print the first 5 lines of the dataframe
-//	 */
-//	public void printStart() {
-//		String acc = toString("first", 5);
-//		System.out.print(acc);
-//	}
-//	
-//	/**
-//	 * Print the 5 last lines of the dataframe
-//	 */
-//	public void printEnd() {
-//		String acc = toString("last", 5);
-//		System.out.print(acc);
-//	}
+	
+	/**
+	 * Print the first 5 lines of the dataframe
+	 */
+	public void printStart() {
+		String acc = toString("first", 5);
+		System.out.print(acc);
+	}
+	
+	/**
+	 * Print the 5 last lines of the dataframe
+	 */
+	public void printEnd() {
+		String acc = toString("last", 5);
+		System.out.print(acc);
+	}
 	
 	@Override
 	public boolean equals(Object o) {
